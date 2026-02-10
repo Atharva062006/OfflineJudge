@@ -9,7 +9,7 @@ python "/path" %*
 
 
 Other commands:
-python -m pip install rich
+python -m pip install rich, 
 type nul > judge.bat (create a batch file using cmd)
 
 
