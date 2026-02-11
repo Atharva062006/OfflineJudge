@@ -25,6 +25,11 @@ def compile_code(source_path, lang):
         cmd = ["javac", os.path.join(workdir, os.path.basename(source_path))]
         exe_path = None
 
+    elif lang == "python":
+        # Python doesn't need compilation, just copy the source file
+        shutil.copy(source_path, workdir)
+        return True, os.path.join(workdir, os.path.basename(source_path))
+
     else:
         return False, "Unsupported language"
 

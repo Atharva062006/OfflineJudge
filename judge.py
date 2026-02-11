@@ -19,6 +19,8 @@ def detect_lang(path):
         return "c"
     if path.endswith(".java"):
         return "java"
+    if path.endswith(".py"):
+        return "python"
     return None
 
 
@@ -87,9 +89,13 @@ def main():
 
             if lang == "cpp" or lang == "c":
                 cmd = [os.path.join(JUDGE_DIR, "workdir", EXE_NAME)]
-            else:
+            elif lang == "java":
                 class_name = os.path.splitext(os.path.basename(source))[0]
                 cmd = ["java", "-cp", os.path.join(JUDGE_DIR, "workdir"), class_name]
+            elif lang == "python":
+                cmd = ["python", exe]
+            else:
+                cmd = [exe]
 
             result = run_program(cmd, input_data)
 
@@ -144,10 +150,6 @@ def main():
         print(f"{passed}/{total} testcases passed, {failed}/{total} failed")
         if failure_details:
             print(f"Failed at test case #{failure_details['index']}")
-            print(f"Status: {failure_details['status']}")
-            print(f"Input: {failure_details['input']}")
-            print(f"Expected: {failure_details['expected']}")
-            print(f"Got: {failure_details['got']}")
             if failure_details["stderr"]:
                 print("stderr:")
                 print(failure_details["stderr"])
